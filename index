@@ -1,0 +1,211 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "afe637a5-69d1-496b-9587-7c77dd3b0078",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Hey i am cryptic, Welcome to the world of crypto. let me help you chose the most amazing crptos\n"
+     ]
+    }
+   ],
+   "source": [
+    "# greeting\n",
+    "print (\"Hey i am cryptic, Welcome to the world of crypto. let me help you chose the most amazing crptos\")\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "8d12a945-e7ce-47e1-be2f-360e029ebc40",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# setting up the data\n",
+    "crypto_db = {  \n",
+    "    \"Bitcoin\": {  \n",
+    "        \"price_trend\": \"rising\",  \n",
+    "        \"market_cap\": \"high\",  \n",
+    "        \"energy_use\": \"high\",  \n",
+    "        \"sustainability_score\": 3/10  \n",
+    "    },  \n",
+    "    \"Ethereum\": {  \n",
+    "        \"price_trend\": \"stable\",  \n",
+    "        \"market_cap\": \"high\",  \n",
+    "        \"energy_use\": \"medium\",  \n",
+    "        \"sustainability_score\": 6/10  \n",
+    "    },  \n",
+    "    \"Cardano\": {  \n",
+    "        \"price_trend\": \"rising\",  \n",
+    "        \"market_cap\": \"medium\",  \n",
+    "        \"energy_use\": \"low\",  \n",
+    "        \"sustainability_score\": 8/10  \n",
+    "    }  \n",
+    "}  "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "c8555bca-ec70-477d-809a-85e183687297",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdin",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "You:  eco\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Cryptic: 🌱 Cardano is the most eco-friendly option with a score of 8.0/10.\n"
+     ]
+    },
+    {
+     "name": "stdin",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "You:  trending\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Cryptic: 📈 These coins are trending up: Bitcoin, Cardano.\n"
+     ]
+    },
+    {
+     "name": "stdin",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "You:  growth\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Cryptic: 🚀 Bitcoin is trending and has a high market cap — great for long-term growth!\n"
+     ]
+    },
+    {
+     "name": "stdin",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "You:  energy\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Cryptic: 🤔 I didn’t quite catch that. Ask me about trends, growth, or sustainability!\n"
+     ]
+    },
+    {
+     "name": "stdin",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "You:  bye\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Cryptic: 👋 Bye! Happy investing!\n"
+     ]
+    }
+   ],
+   "source": [
+    "# the loop\n",
+    "#infinite loop to run until exit clause\n",
+    "while True:\n",
+    "    user_input = input(\"\\nYou: \").lower() # user input, be converted to lower case\n",
+    "\n",
+    "    if \"bye\" in user_input:\n",
+    "        print(\"Cryptic: 👋 Bye! Happy investing!\")\n",
+    "        break  # exit loop when bye is typed\n",
+    "\n",
+    "    elif \"sustainable\" in user_input or \"eco\" in user_input or \"green\" in user_input:\n",
+    "        best = max(crypto_db, key=lambda x: crypto_db[x][\"sustainability_score\"])\n",
+    "        print(f\"Cryptic: 🌱 {best} is the most eco-friendly option with a score of {crypto_db[best]['sustainability_score'] * 10}/10.\")\n",
+    "\n",
+    "    elif \"trending\" in user_input or \"rising\" in user_input:\n",
+    "        trending = [coin for coin in crypto_db if crypto_db[coin][\"price_trend\"] == \"rising\"]\n",
+    "        print(f\"Cryptic: 📈 These coins are trending up: {', '.join(trending)}.\")\n",
+    "\n",
+    "    elif \"long-term\" in user_input or \"growth\" in user_input:\n",
+    "        recommended = None\n",
+    "        for coin, data in crypto_db.items():\n",
+    "            if data[\"price_trend\"] == \"rising\" and data[\"market_cap\"] == \"high\":\n",
+    "                recommended = coin\n",
+    "                break\n",
+    "        if recommended:\n",
+    "            print(f\"Cryptic: 🚀 {recommended} is trending and has a high market cap — great for long-term growth!\")\n",
+    "\n",
+    "    elif \"best\" in user_input or (\"green\" in user_input and \"growth\" in user_input):\n",
+    "        for coin, data in crypto_db.items():\n",
+    "            if data[\"price_trend\"] == \"rising\" and data[\"sustainability_score\"] >= 0.7:\n",
+    "                print(f\"Cryptic: 🚀🌱 {coin} is growing and eco-friendly — a solid long-term pick!\")\n",
+    "                break\n",
+    "\n",
+    "    elif any(coin.lower() in user_input for coin in crypto_db):\n",
+    "        for coin in crypto_db:\n",
+    "            if coin.lower() in user_input:\n",
+    "                details = crypto_db[coin]\n",
+    "                print(f\"Crypticy: 📊 Here’s what I know about {coin}:\\n\"\n",
+    "                      f\"- Price Trend: {details['price_trend']}\\n\"\n",
+    "                      f\"- Market Cap: {details['market_cap']}\\n\"\n",
+    "                      f\"- Energy Use: {details['energy_use']}\\n\"\n",
+    "                      f\"- Sustainability Score: {details['sustainability_score'] * 10}/10\")\n",
+    "\n",
+    "    else:\n",
+    "        print(\"Cryptic: 🤔 I didn’t quite catch that. Ask me about trends, growth, or sustainability!\")\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a81ef4ee-f718-4582-a6cf-0e377c3b9143",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "anaconda-panel-2023.05-py310",
+   "language": "python",
+   "name": "conda-env-anaconda-panel-2023.05-py310-py"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.5"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
